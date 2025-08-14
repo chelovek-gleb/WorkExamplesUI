@@ -1,41 +1,48 @@
 name: Automated tests
 
 on:
-    workflow_dispatch:
-        inputs:
-            deployment_target:
-                description: Choose target
-                required: true
-                default: test_metrics_anatoliy_a2_result
-                type: choice
-                options:
-                    - test_metrics_anatoliy_a2
-                    - test_metrics_anatoliy_a2_result
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Choose target
+        required: true
+        default: test_metrics_anatoliy_a2_result
+        type: choice
+        options:
+          - test_metrics_anatoliy_a2
+          - test_metrics_anatoliy_a2_result
 
 jobs:
-    test: 
-        runs-on: ubuntu-latest
+  test: 
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: Checkout repository
-            uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-          - name: Setup Python
-            uses: actions/setup-python@v4
-            with:
-                python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-          - name: Install Chrome
-            run: sudo apt-get install google-chrome-stable
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
-          - name: Install dependencies
-            run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-          - name: test_metrics_anatoliy_a2
-            if: github.event.inputs.deployment_target == 'first_test'
-            run: pytest  tests/test_metrics_anatoliy_a2.py -s -v  
+      - name: test_metrics_anatoliy_a2
+        if: github.event.inputs.deployment_target == 'test_metrics_anatoliy_a2'
+        env:
+          MY_USERNAME: ${{ secrets.TEST_USERNAME }}
+          MY_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: pytest tests/test_metrics_anatoliy_a2.py -s -v
 
-          - name: test_metrics_anatoliy_a2_result
-            if: github.event.inputs.deployment_target == 'second_test'
-            run: pytest  tests/test_metrics_anatoliy_a2_result.py -s -v
-
+      - name: test_metrics_anatoliy_a2_result
+        if: github.event.inputs.deployment_target == 'test_metrics_anatoliy_a2_result'
+        env:
+          MY_USERNAME: ${{ secrets.TEST_USERNAME }}
+          MY_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: pytest tests/test_metrics_anatoliy_a2_result.py -s -v
