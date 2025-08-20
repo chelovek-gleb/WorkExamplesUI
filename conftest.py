@@ -2,13 +2,14 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+"""Фикстура запуска браузера в headless режиме и его закрытия после прохождения тестов"""
 @pytest.fixture(scope="session")
 def browser():
     # Настраиваем headless-режим
     options = Options()
     options.add_argument("--headless=new")  # для новых версий Chrome
     options.add_argument("--no-sandbox") # нужно для тестов В изолированных средах (Docker, GitLab CI,
-    options.add_experimental_option('excludeSwitches', ['enable-logging']) 
+    options.add_experimental_option('excludeSwitches', ['enable-logging']) # отключение лишних логов хрома
     options.add_argument("--disable-dev-shm-usage") # нужно для тестов В изолированных средах (Docker, GitLab CI,
 
     driver = webdriver.Chrome(options=options)

@@ -4,8 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 
 class AuthorizationPage(Base):
-
-    
+    """Страница авторизации в админке sam"""
 
     url = 'https://sam.big3.ru/admin/login/?next=/admin/'
 
@@ -13,10 +12,10 @@ class AuthorizationPage(Base):
 
     username_locator = "//input[@name='username']"
     password_locator = "//input[@name='password']"
-    log_in_locator = "//input[@type='submit']"
+    log_in_locator = "//input[@type='submit']" # Кнопка войти
 
     # Getters
-
+    """Применяется явное ожидание к элементам по локатору"""
     def get_username(self):
         return WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, self.username_locator)))
 
@@ -41,7 +40,7 @@ class AuthorizationPage(Base):
         print('Кликнули Log in')
 
     # Methods
-
+    """Метод авторизации"""
     def authorization(self, username, password):
         self.driver.get(self.url)
         self.send_username(username)

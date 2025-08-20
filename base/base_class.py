@@ -23,6 +23,7 @@ class Base():
         self.driver.save_screenshot(f'D:\\Python\\MyTestProjectFront\\main_project\\screenshots\\{name_screenshot}')
         print('Скриншот выполнен')
 
+    """Проверка урла"""
     def assert_url(self, result):
         url = self.driver.current_url
         print('url= ', url)

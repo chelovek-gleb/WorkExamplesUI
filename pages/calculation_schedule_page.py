@@ -5,21 +5,21 @@ from base.base_class import Base
 
 
 class CalculationSchedulePage(Base):
-    """Класс продуктов представленных на странице"""
+    """Класс страницы расписания расчетов"""
 
+    filter = 'Anatoliy A2' # значение для фильтрации
     # Locators
-    filter = 'Anatoliy A2'
-
-    search_bar_locator = "//input[@id='searchbar']"
-    search_button_locator = "//input[@value='Search']"
-    filter_locator = f"//details[@data-filter-title='service']//ul//li//a[text()='{filter}']"
-    checkbox_all_locator = "//input[@id='action-toggle']"
-    actions_locator = "//select[@name='action']"
-    run_calculation_locator = "//option[@value='run_calculation']"
-    go_button_locator = "//button[@title='Run the selected action']"
+    
+    search_bar_locator = "//input[@id='searchbar']" # поисковая строка
+    search_button_locator = "//input[@value='Search']" # кнопка поиска
+    filter_locator = f"//details[@data-filter-title='service']//ul//li//a[text()='{filter}']" # локатор фильтра с подставляемым значением
+    checkbox_all_locator = "//input[@id='action-toggle']" # чекбокс который выбирает все значения в отфильтрованном списке
+    actions_locator = "//select[@name='action']" # действия
+    run_calculation_locator = "//option[@value='run_calculation']" # запустить расчет метрики, выбирается в действиях(actions)
+    go_button_locator = "//button[@title='Run the selected action']" # кнопка Go
 
     # Getters
-
+    """Применяется явное ожидание к элементам по локатору"""
     def get_search_bar(self):
         return WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, self.search_bar_locator)))
 
@@ -43,10 +43,6 @@ class CalculationSchedulePage(Base):
     
     # Actions
 
-    """ def click_search_button(self):
-        self.get_search_button().click()
-        print('Кликнули кнопку поиска')"""
-
     def click_filter(self):
         self.get_filter().click()
         print(f'Кликнули по фильтру {filter}')
@@ -69,12 +65,7 @@ class CalculationSchedulePage(Base):
     
 
     # Methods
-
-    """def execute_search(self, text):
-        self.get_search_bar().send_keys(text)
-        print('Заполнили поле поиска')
-        self.click_search_button()"""
-
+    """Метод расчета метрик по выбранному фильтру"""
     def start_metric_calculation(self):
         self.click_checkbox_all()
         self.click_actions()

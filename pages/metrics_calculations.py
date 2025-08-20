@@ -4,34 +4,36 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 
 class MetricsCalculations(Base):
+    """Класс страницы Metric Calculations - расчеты метрик"""
 
+    filter = 'Anatoliy A2' # значение для фильтрации
     # Locators
-    filter = 'Anatoliy A2'
     
-    filter_locator = f"//details[@data-filter-title='service']//ul//li//a[text()='{filter}']"
+    filter_locator = f"//details[@data-filter-title='service']//ul//li//a[text()='{filter}']" # локатор фильтра с подставляемым значением
 
-
+    """Локаторы разделены по группам. Дата и результат относящиеся к Anatoliy A2 - correctness"""
     correctness_locator = "(//div[@class='results']//table//tbody//tr//th//a[text()='Anatoliy A2 - correctness'])[1]"
     correctness_date_locator = "(//div[@class='results']//table//tbody//tr//td[@class='field-calculation_date nowrap'])[1]"
     correctness_result_locator = "(//div[@class='results']//table//tbody//tr//td[@class='field-get_result_preview']//span)[1]"
 
-
+    """ Дата и результат относящиеся к Anatoliy A2 - quckness"""
     quckness_locator = "(//div[@class='results']//table//tbody//tr//th//a[text()='Anatoliy A2 - quickness'])[1]"
     quckness_date_locator = "(//div[@class='results']//table//tbody//tr//td[@class='field-calculation_date nowrap'])[2]"
     quckness_result_locator = "(//div[@class='results']//table//tbody//tr//td[@class='field-get_result_preview']//span)[2]"
 
+    """ Дата и результат относящиеся к Anatoliy A2 - executed"""
     executed_locator = "(//div[@class='results']//table//tbody//tr//th//a[text()='Anatoliy A2 - executed'])[1]"
     executed_date_locator = "(//div[@class='results']//table//tbody//tr//td[@class='field-calculation_date nowrap'])[3]"
     executed_result_locator = "(//div[@class='results']//table//tbody//tr//td[@class='field-get_result_preview']//span)[3]"
 
 
-
     # Getters
-
+    """Применяется явное ожидание к элементам по локатору"""
     def get_filter(self):
         return WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, self.filter_locator)))
     
     #correctness
+    """Аналогично локаторам, геттеры разделены по группам"""
     def get_correctness(self):
         return WebDriverWait(self.driver, 15).until(EC.element_to_be_clickable((By.XPATH, self.correctness_locator)))
     
@@ -69,6 +71,7 @@ class MetricsCalculations(Base):
 
 
     # correctness
+    """Методы проверки наименования метрики, даты и результата"""
     def get_text_correctness(self):
         info = self.get_correctness().text
         print(f'Метрика: {info}')
@@ -114,7 +117,7 @@ class MetricsCalculations(Base):
 
 
     # Methods
-
+    """Метод запуска всех проверок по выбранному фильтру"""
     def check_metrics(self):
         self.click_filter()
         self.get_text_correctness()
