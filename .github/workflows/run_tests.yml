@@ -36,13 +36,13 @@ jobs:
       - name: test_metrics_anatoliy_a2
         if: github.event.inputs.deployment_target == 'test_metrics_anatoliy_a2'
         env:
-          MY_USERNAME: ${{ secrets.TEST_USERNAME }}
-          MY_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: pytest tests/test_metrics_anatoliy_a2.py -s -v
 
       - name: test_metrics_anatoliy_a2_result
         if: github.event.inputs.deployment_target == 'test_metrics_anatoliy_a2_result'
         env:
-          MY_USERNAME: ${{ secrets.TEST_USERNAME }}
-          MY_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: pytest tests/test_metrics_anatoliy_a2_result.py -s -v
