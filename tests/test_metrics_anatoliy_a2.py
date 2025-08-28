@@ -11,15 +11,15 @@ load_dotenv()
 Должна собираться метрика "времени (скорости) ответа"
 """
 
-def test_metricstest_metrics_anatoliy_a2(browser):
+def test_metricstest_metrics_anatoliy_a2(driver):
 
     username = os.getenv("TEST_USERNAME")
     password = os.getenv("TEST_PASSWORD")
 
     #Объявление экземпляров класса
-    calc_page = CalculationSchedulePage(browser)
-    authorization_page = AuthorizationPage(browser)
-    main_page = MainPage(browser)
+    calc_page = CalculationSchedulePage(driver)
+    authorization_page = AuthorizationPage(driver)
+    main_page = MainPage(driver)
 
     #Авторизация
     authorization_page.authorization(username, password)

@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.options import Options
 
 """Фикстура запуска браузера в headless режиме и его закрытия после прохождения тестов"""
 @pytest.fixture(scope="session")
-def browser():
+def driver():
     # Настраиваем headless-режим
     options = Options()
     options.add_argument("--headless=new")  # для новых версий Chrome

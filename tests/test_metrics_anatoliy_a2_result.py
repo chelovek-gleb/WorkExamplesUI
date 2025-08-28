@@ -16,15 +16,15 @@ load_dotenv()
     так как нужно чтобы метрики успели рассчитаться. Поэтому в этом тесте браузер открывается заново
     """
 
-def test_metricstest_metrics_anatoliy_a2_result(browser):
+def test_metricstest_metrics_anatoliy_a2_result(driver):
 
     username = os.getenv("TEST_USERNAME")
     password = os.getenv("TEST_PASSWORD")
 
     #Объявление экземпляров класса
-    metrics_page = MetricsCalculations(browser)
-    authorization_page = AuthorizationPage(browser)
-    main_page = MainPage(browser)
+    metrics_page = MetricsCalculations(driver)
+    authorization_page = AuthorizationPage(driver)
+    main_page = MainPage(driver)
 
     #Авторизация
     authorization_page.authorization(username, password)
