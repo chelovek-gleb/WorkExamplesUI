@@ -33,6 +33,13 @@ def test_metricstest_metrics_anatoliy_a2_result(browser):
     main_page.click_metric_calculations()
 
     #Фильтруем по нужной метрике
-    metrics_page.check_metrics()
+    metrics = metrics_page.check_metrics()
+
+    metric_info = str(metrics) # из списка делаем строку
+
+    assert "correctness" in metric_info, "Значения correctness нет в строке" #Проверяем что в строке есть значения
+    assert "executed" in metric_info, "Значения executed нет в строке"
+    assert "quickness" in metric_info, "Значения quickness нет в строке"
+    
 
     time.sleep(5)

@@ -84,6 +84,7 @@ class MetricsCalculations(Base):
     def get_text_correctness_result(self):
         info = self.get_correctness_result().text
         print(f'Результат: {info}\n')
+        return info
 
 
     # quckness
@@ -99,6 +100,7 @@ class MetricsCalculations(Base):
     def get_text_quckness_result(self):
         info = self.get_quckness_result().text
         print(f'Результат: {info}\n')
+        return info
 
 
     # executed
@@ -114,6 +116,7 @@ class MetricsCalculations(Base):
     def get_text_executed_result(self):
         info = self.get_executed_result().text
         print(f'Результат: {info}\n')
+        return info
 
 
     # Methods
@@ -122,12 +125,15 @@ class MetricsCalculations(Base):
         self.click_filter()
         self.get_text_correctness()
         self.get_text_correctness_date()
-        self.get_text_correctness_result()
+        correctness = self.get_text_correctness_result()
 
         self.get_text_quckness()
         self.get_text_quckness_date()
-        self.get_text_quckness_result()
+        quckness = self.get_text_quckness_result()
 
         self.get_text_executed()
         self.get_text_executed_date()
-        self.get_text_executed_result()
+        executed = self.get_text_executed_result()
+
+        metrics = [correctness, quckness, executed]
+        return metrics
